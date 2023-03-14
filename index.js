@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(bodyParser.json()); // Add this middleware to parse JSON requests
 
 
@@ -24,7 +25,6 @@ app.get('/getProducts', (req, res) => {
 });
 app.post('/createProduct', (req, res) => {
     const { name, price} = req.body;
-    const { authorization } = req.headers;
 
     db.run('INSERT INTO product (nameProduct, priceProduct, imgProduct) VALUES (?,?,?)', name, price, img, (err) => {
         if (err) {
